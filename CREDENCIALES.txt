@@ -1,0 +1,86 @@
+╔══════════════════════════════════════════════════════════════════╗
+║              CREDENCIALES DEL SISTEMA - DATABROKERS              ║
+╚══════════════════════════════════════════════════════════════════╝
+
+Fecha de instalación: 2025-10-28 15:09:05
+
+SISTEMA OPERATIVO
+━━━━━━━━━━━━━━━━━━━━━
+Microsoft Windows 11 Home Single Language
+Versión: 10.0.26200
+
+BASE DE DATOS POSTGRESQL 14
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Host: localhost
+Puerto: 5432
+Base de datos: databrokers_prod
+Usuario: databrokers_admin
+Contraseña: wMiTgytE4B1bk6mx
+
+CONTRASEÑA POSTGRES
+━━━━━━━━━━━━━━━━━━━━━
+Usuario: postgres
+Contraseña: wMiTgytE4B1bk6mx
+
+ACCESO AL SISTEMA
+━━━━━━━━━━━━━━━━━━━━━
+URL Frontend: http://localhost:3000
+URL Backend API: http://localhost:5000
+
+Usuario Administrador:
+Email: admin@databrokers.cl
+Contraseña: DataBrokers2025!
+(⚠️ Cambiar en primer acceso)
+
+DIRECTORIOS
+━━━━━━━━━━━━━━━━━━━━━
+Instalación: C:\DataBrokers
+Backend: C:\DataBrokers\backend
+Frontend: C:\DataBrokers\frontend
+Base de datos: C:\DataBrokers\database
+Uploads: C:\DataBrokers\uploads
+Logs: C:\DataBrokers\logs
+Backups: C:\DataBrokers\backups
+
+SCRIPTS DE INICIO
+━━━━━━━━━━━━━━━━━━━━━
+Iniciar todo: C:\DataBrokers\INICIAR-DATABROKERS.bat
+Backend solo: C:\DataBrokers\start-backend.bat
+Frontend solo: C:\DataBrokers\start-frontend.bat
+
+SERVICIOS INSTALADOS
+━━━━━━━━━━━━━━━━━━━━━
+✓ Node.js v22.21.0
+✓ PostgreSQL 14
+✓ Git
+
+PRÓXIMOS PASOS
+━━━━━━━━━━━━━━━━━━━━━
+1. Instalar dependencias:
+   cd C:\DataBrokers\backend
+   npm install
+   
+   cd C:\DataBrokers\frontend
+   npm install
+
+2. Compilar frontend:
+   cd C:\DataBrokers\frontend
+   npm run build
+
+3. Iniciar sistema:
+   Ejecutar: C:\DataBrokers\INICIAR-DATABROKERS.bat
+
+IMPORTANTE
+━━━━━━━━━━━━━━━━━━━━━
+⚠️ Guarda este archivo en un lugar seguro
+⚠️ No compartas las contraseñas
+⚠️ Cambia las contraseñas por defecto
+
+SOPORTE
+━━━━━━━━━━━━━━━━━━━━━
+Documentación: C:\DataBrokers\docs
+Logs: C:\DataBrokers\logs
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+© 2025 DataBrokers - Sistema de Gestión de Negocios Inmobiliarios
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

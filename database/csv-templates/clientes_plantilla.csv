@@ -1,0 +1,4 @@
+rut,nombres,apellidos,email,telefono_1,direccion,comuna,region,tipo_cliente,estado_civil,profesion,origen_lead
+12345678-9,Juan,Pérez,juan.perez@email.com,+56912345678,Calle Falsa 123,Santiago,Metropolitana,persona,casado,Ingeniero,web
+98765432-1,María,González,maria.gonzalez@email.com,+56987654321,Av. Principal 456,Viña del Mar,Valparaíso,persona,soltera,Doctora,referido
+11223344-5,Carlos,López,carlos.lopez@empresa.cl,+56911223344,Los Aromos 789,Las Condes,Metropolitana,empresa,,,redsocial

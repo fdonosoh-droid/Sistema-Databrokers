@@ -1,0 +1,9 @@
+rut,nombres,apellidos,email,rol,telefono,fecha_ingreso
+11111111-1,Administrador,Sistema,admin@databrokers.cl,administrador,+56912345678,2024-01-01
+22222222-2,María,González,maria.gonzalez@databrokers.cl,ejecutivo,+56923456789,2024-01-15
+33333333-3,Carlos,Fernández,carlos.fernandez@databrokers.cl,ejecutivo,+56934567890,2024-02-01
+44444444-4,Ana,Rodríguez,ana.rodriguez@databrokers.cl,ejecutivo,+56945678901,2024-02-15
+55555555-5,Luis,Martínez,luis.martinez@databrokers.cl,supervisor,+56956789012,2024-01-10
+66666666-6,Patricia,López,patricia.lopez@databrokers.cl,analista,+56967890123,2024-01-20
+77777777-7,Diego,Silva,diego.silva@databrokers.cl,ejecutivo,+56978901234,2024-03-01
+88888888-8,Carla,Torres,carla.torres@databrokers.cl,ejecutivo,+56989012345,2024-03-15

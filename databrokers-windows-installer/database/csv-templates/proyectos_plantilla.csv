@@ -1,0 +1,3 @@
+codigo,nombre,direccion,comuna,region,tipo_proyecto,estado,fecha_inicio,fecha_termino_estimada,inmobiliaria,total_unidades,descripcion
+PROY-001,Edificio Vista Mar,Av. Libertad 1234,Viña del Mar,Valparaíso,edificio,construccion,2024-01-15,2025-12-31,Inmobiliaria XYZ,48,Moderno edificio con vista al mar
+PROY-002,Condominio Los Álamos,Camino El Alba 567,Lo Barnechea,Metropolitana,condominio,planificacion,2025-03-01,2026-12-31,Constructora ABC,24,Exclusivo condominio de casas

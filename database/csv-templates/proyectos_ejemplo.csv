@@ -1,0 +1,6 @@
+codigo,nombre,direccion,comuna,region,tipo_proyecto,estado,fecha_inicio,fecha_termino_estimada,inmobiliaria,total_unidades,precio_minimo,precio_maximo,descripcion
+PROY-001,Edificio Vista Mar,Av. Libertad 1234,Viña del Mar,Valparaíso,edificio,construccion,2024-01-15,2025-12-31,Inmobiliaria XYZ,48,4200000,8500000,Moderno edificio frente al mar con amenities de lujo
+PROY-002,Condominio Los Álamos,Camino El Alba 567,Lo Barnechea,Metropolitana,condominio,planificacion,2024-06-01,2026-03-31,Inmobiliaria ABC,32,12000000,18500000,Exclusivo condominio de casas con amplios jardines
+PROY-003,Torre Mirador,Av. Providencia 2345,Providencia,Metropolitana,edificio,construccion,2023-09-01,2025-06-30,Constructora DEF,72,5500000,12000000,Torre de departamentos en el corazón de Providencia
+PROY-004,Parcelas El Bosque,Ruta 68 Km 25,Casablanca,Valparaíso,parcelas,entrega,2022-03-01,2024-12-31,Inmobiliaria GHI,15,15000000,25000000,Parcelas de agrado con hermosa vista al valle
+PROY-005,Edificio Empresarial Centro,Av. Apoquindo 4567,Las Condes,Metropolitana,oficinas,terminado,2021-01-01,2023-12-31,Constructora JKL,120,3500000,9000000,Modernas oficinas con certificación sustentable
