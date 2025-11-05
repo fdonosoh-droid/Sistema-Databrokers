@@ -1,0 +1,527 @@
+IMPLEMENTACIÓN MAESTRA - SISTEMA DE GESTIÓN DATABROKERS
+========================================================
+
+INSTRUCCIONES: Ejecutar los comandos EN ORDEN secuencial según el entorno indicado
+
+ENTORNOS:
+🖥️  LOCAL_WINDOWS  - PowerShell o CMD en tu computadora Windows
+🌐  LOCAL_MAC       - Terminal en tu computadora macOS
+🐧  LOCAL_LINUX     - Terminal en tu computadora Linux
+🚀  SERVIDOR        - SSH en el servidor de producción (Ubuntu)
+
+FASE 0: PREPARACIÓN INICIAL - GITHUB Y ENTORNO LOCAL
+-----------------------------------------------------
+
+🖥️  LOCAL_WINDOWS  # 0.1 Instalar Git en Windows
+# Descargar desde: https://git-scm.com/download/win
+# Ejecutar el instalador con opciones por defecto
+
+🌐  LOCAL_MAC       # 0.1 Instalar Git en macOS
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install git
+
+🐧  LOCAL_LINUX     # 0.1 Instalar Git en Linux
+sudo apt update && sudo apt install git -y
+
+🖥️  LOCAL_WINDOWS  # 0.2 Configurar Git globalmente
+git config --global user.name "Tu Nombre"
+git config --global user.email "tu.email@empresa.com"
+
+🌐  LOCAL_MAC       # 0.2 Configurar Git globalmente  
+git config --global user.name "Tu Nombre"
+git config --global user.email "tu.email@empresa.com"
+
+🐧  LOCAL_LINUX     # 0.2 Configurar Git globalmente
+git config --global user.name "Tu Nombre"
+git config --global user.email "tu.email@empresa.com"
+
+🖥️  LOCAL_WINDOWS  # 0.3 Navegar al directorio de trabajo
+cd Desktop
+# O: cd Documents
+
+🌐  LOCAL_MAC       # 0.3 Navegar al directorio de trabajo
+cd ~/Desktop
+
+🐧  LOCAL_LINUX     # 0.3 Navegar al directorio de trabajo
+cd ~/Desktop
+
+🖥️  LOCAL_WINDOWS  # 0.4 Clonar repositorio
+git clone https://github.com/tu-usuario/databrokers-system.git
+cd databrokers-system
+
+🌐  LOCAL_MAC       # 0.4 Clonar repositorio
+git clone https://github.com/tu-usuario/databrokers-system.git
+cd databrokers-system
+
+🐧  LOCAL_LINUX     # 0.4 Clonar repositorio
+git clone https://github.com/tu-usuario/databrokers-system.git
+cd databrokers-system
+
+FASE 1: CONFIGURACIÓN DEL SERVIDOR - CONEXIÓN INICIAL
+------------------------------------------------------
+
+🖥️  LOCAL_WINDOWS  # 1.1 Conectarse al servidor (PowerShell)
+ssh usuario@ip-del-servidor
+
+🌐  LOCAL_MAC       # 1.1 Conectarse al servidor (Terminal)
+ssh usuario@ip-del-servidor
+
+🐧  LOCAL_LINUX     # 1.1 Conectarse al servidor (Terminal)
+ssh usuario@ip-del-servidor
+
+🚀  SERVIDOR        # 1.2 Una vez conectado al servidor:
+
+# Convertirse en superusuario
+sudo su -
+
+# Crear usuario para la aplicación
+adduser databroker
+usermod -aG sudo databroker
+
+# Cambiar al usuario de la aplicación
+su - databroker
+
+FASE 2: INSTALACIÓN DEL SISTEMA BASE EN SERVIDOR
+-------------------------------------------------
+
+🚀  SERVIDOR        # 2.1 Actualizar sistema completo
+sudo apt update && sudo apt upgrade -y
+
+🚀  SERVIDOR        # 2.2 Instalar herramientas básicas
+sudo apt install -y curl wget git unzip
+
+🚀  SERVIDOR        # 2.3 Instalar Python
+sudo apt install -y python3.9 python3.9-venv python3.9-dev python3-pip
+
+🚀  SERVIDOR        # 2.4 Instalar Node.js
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt install -y nodejs
+
+🚀  SERVIDOR        # 2.5 Instalar base de datos y servidores
+sudo apt install -y postgresql postgresql-contrib redis-server nginx
+
+🚀  SERVIDOR        # 2.6 Verificar instalaciones
+python3 --version
+node --version
+npm --version
+psql --version
+
+FASE 3: CONFIGURACIÓN DE BASE DE DATOS EN SERVIDOR
+---------------------------------------------------
+
+🚀  SERVIDOR        # 3.1 Configurar PostgreSQL
+sudo -u postgres psql -c "CREATE DATABASE databrokers_db;"
+sudo -u postgres psql -c "CREATE USER databroker_user WITH PASSWORD 'DataBrokerSecure2024!';"
+sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE databrokers_db TO databroker_user;"
+
+🚀  SERVIDOR        # 3.2 Configurar Redis
+sudo systemctl enable redis-server
+sudo systemctl start redis-server
+
+🚀  SERVIDOR        # 3.3 Verificar servicios
+sudo systemctl status postgresql
+sudo systemctl status redis-server
+
+FASE 4: CLONAR REPOSITORIO EN SERVIDOR
+---------------------------------------
+
+🚀  SERVIDOR        # 4.1 Navegar al directorio /opt
+cd /opt
+
+🚀  SERVIDOR        # 4.2 Clonar repositorio
+sudo git clone https://github.com/tu-usuario/databrokers-system.git
+
+🚀  SERVIDOR        # 4.3 Cambiar permisos
+sudo chown -R databroker:databroker databrokers-system/
+
+🚀  SERVIDOR        # 4.4 Navegar al proyecto
+cd databrokers-system
+
+FASE 5: CONFIGURACIÓN DEL BACKEND EN SERVIDOR
+----------------------------------------------
+
+🚀  SERVIDOR        # 5.1 Navegar al backend
+cd backend
+
+🚀  SERVIDOR        # 5.2 Crear entorno virtual
+python3.9 -m venv venv
+
+🚀  SERVIDOR        # 5.3 Activar entorno virtual
+source venv/bin/activate
+
+🚀  SERVIDOR        # 5.4 Instalar dependencias Python
+pip install --upgrade pip
+pip install -r requirements.txt
+
+🚀  SERVIDOR        # 5.5 Si no existe requirements.txt, crearlo:
+cat > requirements.txt << 'ENDFILE'
+flask==2.3.3
+flask-sqlalchemy==3.0.5
+flask-cors==4.0.0
+flask-jwt-extended==4.5.3
+psycopg2-binary==2.9.9
+python-dotenv==1.0.0
+gunicorn==21.2.0
+celery==5.3.4
+redis==5.0.1
+requests==2.31.0
+pandas==2.1.3
+numpy==1.25.2
+ENDFILE
+
+🚀  SERVIDOR        # 5.6 Instalar dependencias
+pip install -r requirements.txt
+
+🚀  SERVIDOR        # 5.7 Configurar variables de entorno
+cat > .env << 'ENDFILE'
+DATABASE_URL=postgresql://databroker_user:DataBrokerSecure2024!@localhost/databrokers_db
+SECRET_KEY=databrokers-secret-key-2024-production-secure
+JWT_SECRET_KEY=jwt-secret-key-2024-production-secure
+DEBUG=False
+REDIS_URL=redis://localhost:6379/0
+ENDFILE
+
+FASE 6: ESTRUCTURA DE ARCHIVOS DEL BACKEND
+-------------------------------------------
+
+🚀  SERVIDOR        # 6.1 Crear estructura de carpetas
+mkdir -p app models routes utils tests
+
+🚀  SERVIDOR        # 6.2 Crear aplicación Flask principal
+cat > app/__init__.py << 'ENDFILE'
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
+from flask_jwt_extended import JWTManager
+import os
+
+db = SQLAlchemy()
+
+def create_app():
+    app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+    
+    db.init_app(app)
+    CORS(app)
+    JWTManager(app)
+    
+    from .routes import main_bp, auth_bp, data_bp
+    app.register_blueprint(main_bp)
+    app.register_blueprint(auth_bp, url_prefix='/api/auth')
+    app.register_blueprint(data_bp, url_prefix='/api/data')
+    
+    return app
+ENDFILE
+
+🚀  SERVIDOR        # 6.3 Crear modelos de base de datos
+cat > models/__init__.py << 'ENDFILE'
+from app import db
+from datetime import datetime
+import json
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password_hash = db.Column(db.String(255), nullable=False)
+    role = db.Column(db.String(20), default='user')
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+class DataSource(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text)
+    api_endpoint = db.Column(db.String(255))
+    is_active = db.Column(db.Boolean, default=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+ENDFILE
+
+🚀  SERVIDOR        # 6.4 Crear rutas de la API
+cat > routes/__init__.py << 'ENDFILE'
+from flask import Blueprint, jsonify, request
+from app import db
+from models import User
+from flask_jwt_extended import jwt_required, create_access_token
+
+main_bp = Blueprint('main', __name__)
+auth_bp = Blueprint('auth', __name__)
+data_bp = Blueprint('data', __name__)
+
+@main_bp.route('/')
+def index():
+    return jsonify({"message": "DataBrokers API", "status": "active"})
+
+@main_bp.route('/health')
+def health():
+    return jsonify({"status": "healthy", "service": "DataBrokers API"})
+
+@auth_bp.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    user = User.query.filter_by(username=data.get('username')).first()
+    
+    if user and user.password_hash == data.get('password'):
+        access_token = create_access_token(identity=user.id)
+        return jsonify({
+            "access_token": access_token,
+            "user": {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+                "role": user.role
+            }
+        })
+    return jsonify({"error": "Invalid credentials"}), 401
+ENDFILE
+
+🚀  SERVIDOR        # 6.5 Crear aplicación principal
+cat > app.py << 'ENDFILE'
+from app import create_app
+from models import User
+import os
+
+app = create_app()
+
+if __name__ == '__main__':
+    with app.app_context():
+        from app import db
+        db.create_all()
+        
+        if not User.query.filter_by(username='admin').first():
+            admin_user = User(
+                username='admin',
+                email='admin@databrokers.com',
+                password_hash='admin123',
+                role='admin'
+            )
+            db.session.add(admin_user)
+            db.session.commit()
+            print("Usuario admin creado: admin / admin123")
+        
+        print("Base de datos inicializada")
+    
+    app.run(host='0.0.0.0', port=5000, debug=False)
+ENDFILE
+
+FASE 7: INICIALIZACIÓN DE BASE DE DATOS
+----------------------------------------
+
+🚀  SERVIDOR        # 7.1 Activar entorno virtual
+source venv/bin/activate
+
+🚀  SERVIDOR        # 7.2 Inicializar base de datos
+python app.py
+# Presionar Ctrl+C después de ver "Usuario admin creado"
+
+FASE 8: CONFIGURACIÓN DEL FRONTEND EN SERVIDOR
+-----------------------------------------------
+
+🚀  SERVIDOR        # 8.1 Navegar al frontend
+cd /opt/databrokers-system/frontend
+
+🚀  SERVIDOR        # 8.2 Crear package.json si no existe
+cat > package.json << 'ENDFILE'
+{
+  "name": "databrokers-frontend",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.16.0",
+    "axios": "^1.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.1.0",
+    "vite": "^4.4.0"
+  }
+}
+ENDFILE
+
+🚀  SERVIDOR        # 8.3 Instalar dependencias Node.js
+npm install
+
+🚀  SERVIDOR        # 8.4 Construir aplicación para producción
+npm run build
+
+FASE 9: CONFIGURACIÓN DE SERVICIOS SYSTEMD
+-------------------------------------------
+
+🚀  SERVIDOR        # 9.1 Crear servicio para la API
+sudo tee /etc/systemd/system/databrokers-api.service << 'ENDFILE'
+[Unit]
+Description=DataBrokers API Service
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=databroker
+Group=databroker
+WorkingDirectory=/opt/databrokers-system/backend
+Environment=PATH=/opt/databrokers-system/backend/venv/bin
+ExecStart=/opt/databrokers-system/backend/venv/bin/gunicorn --bind 0.0.0.0:5000 --workers 4 app:app
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+ENDFILE
+
+🚀  SERVIDOR        # 9.2 Configurar Nginx
+sudo tee /etc/nginx/sites-available/databrokers << 'ENDFILE'
+server {
+    listen 80;
+    server_name _;
+    
+    location / {
+        root /opt/databrokers-system/frontend/dist;
+        try_files $uri $uri/ /index.html;
+    }
+    
+    location /api/ {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+    
+    location /health {
+        proxy_pass http://127.0.0.1:5000/health;
+        access_log off;
+    }
+}
+ENDFILE
+
+🚀  SERVIDOR        # 9.3 Habilitar sitio Nginx
+sudo ln -s /etc/nginx/sites-available/databrokers /etc/nginx/sites-enabled/
+sudo rm -f /etc/nginx/sites-enabled/default
+sudo nginx -t
+sudo systemctl restart nginx
+
+FASE 10: INICIAR SERVICIOS Y VERIFICACIÓN
+------------------------------------------
+
+🚀  SERVIDOR        # 10.1 Iniciar servicio de API
+sudo systemctl daemon-reload
+sudo systemctl enable databrokers-api
+sudo systemctl start databrokers-api
+
+🚀  SERVIDOR        # 10.2 Verificar servicios
+sudo systemctl status databrokers-api
+sudo systemctl status nginx
+
+🚀  SERVIDOR        # 10.3 Verificar que todo funcione
+curl http://localhost/api/health
+curl http://localhost/
+
+FASE 11: CONFIGURACIÓN DE SEGURIDAD Y MANTENIMIENTO
+----------------------------------------------------
+
+🚀  SERVIDOR        # 11.1 Configurar firewall
+sudo ufw allow 80
+sudo ufw allow 22
+sudo ufw enable
+
+🚀  SERVIDOR        # 11.2 Crear script de health check
+cat > /opt/databrokers-system/scripts/health-check.sh << 'ENDFILE'
+#!/bin/bash
+echo "=== DataBrokers Health Check ==="
+echo "Fecha: $(date)"
+
+sudo systemctl is-active databrokers-api > /dev/null && echo "✅ API Activo" || echo "❌ API Inactivo"
+sudo systemctl is-active nginx > /dev/null && echo "✅ Nginx Activo" || echo "❌ Nginx Inactivo"
+
+curl -s http://localhost/health > /dev/null && echo "✅ Health Check OK" || echo "❌ Health Check Falló"
+curl -s http://localhost/ > /dev/null && echo "✅ Frontend OK" || echo "❌ Frontend Falló"
+
+echo "=== Verificación completada ==="
+ENDFILE
+
+chmod +x /opt/databrokers-system/scripts/health-check.sh
+
+FASE 12: FLUJO DE TRABAJO PARA DESARROLLADORES
+-----------------------------------------------
+
+🖥️  LOCAL_WINDOWS  # 12.1 Para nuevos desarrolladores
+git clone https://github.com/tu-usuario/databrokers-system.git
+cd databrokers-system
+git checkout -b developer/tu-nombre
+
+🌐  LOCAL_MAC       # 12.1 Para nuevos desarrolladores  
+git clone https://github.com/tu-usuario/databrokers-system.git
+cd databrokers-system
+git checkout -b developer/tu-nombre
+
+🐧  LOCAL_LINUX     # 12.1 Para nuevos desarrolladores
+git clone https://github.com/tu-usuario/databrokers-system.git
+cd databrokers-system
+git checkout -b developer/tu-nombre
+
+🖥️  LOCAL_WINDOWS  # 12.2 Flujo diario de trabajo
+git checkout main
+git pull origin main
+git checkout -b feature/nombre-funcionalidad
+# ... trabajar en los cambios ...
+git add .
+git commit -m "feat: descripción de los cambios"
+git push -u origin feature/nombre-funcionalidad
+
+🌐  LOCAL_MAC       # 12.2 Flujo diario de trabajo
+git checkout main
+git pull origin main  
+git checkout -b feature/nombre-funcionalidad
+# ... trabajar en los cambios ...
+git add .
+git commit -m "feat: descripción de los cambios"
+git push -u origin feature/nombre-funcionalidad
+
+🐧  LOCAL_LINUX     # 12.2 Flujo diario de trabajo
+git checkout main
+git pull origin main
+git checkout -b feature/nombre-funcionalidad
+# ... trabajar en los cambios ...
+git add .
+git commit -m "feat: descripción de los cambios"
+git push -u origin feature/nombre-funcionalidad
+
+VERIFICACIÓN FINAL Y ACCESO
+============================
+
+🚀  SERVIDOR        # Verificación completa
+/opt/databrokers-system/scripts/health-check.sh
+
+📍 ACCESO AL SISTEMA:
+1. Navegador web: http://ip-del-servidor
+2. Usuario: admin
+3. Contraseña: admin123
+
+🛠 COMANDOS ÚTILES PARA MANTENIMIENTO:
+
+🚀  SERVIDOR        # Ver logs en tiempo real
+sudo journalctl -u databrokers-api -f
+
+🚀  SERVIDOR        # Reiniciar servicios
+sudo systemctl restart databrokers-api
+
+🚀  SERVIDOR        # Actualizar desde GitHub
+cd /opt/databrokers-system
+git pull origin main
+sudo systemctl restart databrokers-api
+
+🚀  SERVIDOR        # Backup de base de datos
+sudo -u postgres pg_dump databrokers_db > backup_$(date +%Y%m%d).sql
+
+ESTADO FINAL: ✅ SISTEMA 100% OPERATIVO
+- Backend API Flask: ✅ Funcionando
+- Frontend React: ✅ Servido
+- Base de datos PostgreSQL: ✅ Configurada
+- Servicios systemd: ✅ Activos
+- Nginx: ✅ Proxy configurado
+- Usuario admin: ✅ Creado

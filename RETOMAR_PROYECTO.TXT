@@ -1,0 +1,1 @@
+si empecemos utilizando la Opción A. Asegurate de desarrollar y que queden full operativos todos los módulos y submodulos de cada pagina del proyecto. En los formularios incorpora validación de datos de acuerdo al tipo de dato esperado y considera en todos los casos CRUD
